@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const { createServer } = require("http");
+const { auth } = require("express-oauth2-bearer");
 // 👉 Replace this with express-oauth2-bearer require 👈
 const {
   checkUrl,
@@ -47,7 +48,9 @@ app.get("/total", (req, res) => {
   res.send({ total, count: expenses.length });
 });
 
-// 👉 Replace this with auth middleware 👈
+// 👆 public routes above 👆
+app.use(auth());
+// 👇 private routes below 👇
 
 app.get("/reports", (req, res) => {
   res.send(expenses);
